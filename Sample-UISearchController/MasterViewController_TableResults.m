@@ -13,7 +13,7 @@
 #import "SearchResultsTableViewController.h"
 #import "Product.h"
 
-#define ENABLE_SCOPE_BUTTONS 1
+#define ENABLE_SCOPE_BUTTONS 0
 
 
 @interface MasterViewController_TableResults () <UISearchResultsUpdating, UISearchBarDelegate>
@@ -43,9 +43,17 @@
 
     self.searchController.searchResultsUpdater = self;
 
-    self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
+    // Old code
+//    self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
+//    self.tableView.tableHeaderView = self.searchController.searchBar;
+//    self.tableView.tableHeaderView = self.searchController.searchBar;
+    
+    // New code
+    self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y+20, self.searchController.searchBar.frame.size.width, 44.0);
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.searchController.searchBar.frame.size.width, 100)];
+    [headerView addSubview:self.searchController.searchBar];
+    self.tableView.tableHeaderView = headerView;
 
-    self.tableView.tableHeaderView = self.searchController.searchBar;
 
 #if ENABLE_SCOPE_BUTTONS
     
